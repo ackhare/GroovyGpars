@@ -4,7 +4,7 @@ package mariogarciaActors.ActorSendingMessage
  * Created by chetan on 18/11/16.
  */
 
-
+//The intent is to show how this will work in cases without dsl like in java
 import groovy.transform.Immutable
 import groovyx.gpars.actor.DefaultActor
 
@@ -16,6 +16,7 @@ import groovyx.gpars.actor.DefaultActor
 //Now we are explicitly declaring a DefaultActor class
 class LoggingActorService extends DefaultActor {
     //Now the actor’s body is constraint within the body of the act() method.
+   @Override
     void act() {
         loop {
             react { UserItem1 userItem ->
@@ -27,7 +28,8 @@ class LoggingActorService extends DefaultActor {
         }
     }
 }
-//In order to be able to send messages to the actor we need its reference, so we pass it when building our service instance
+//In order to be able to send messages to the actor we need its reference,
+// so we pass it when building our service instance
 
 class UserService {
     def loggingService

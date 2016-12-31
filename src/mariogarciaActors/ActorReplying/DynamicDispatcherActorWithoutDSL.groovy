@@ -3,6 +3,19 @@ package mariogarciaActors.ActorReplying
 /**
  * Created by chetan on 24/11/16.
  */
+/*
+/*
+
+
+That’s cool, but sometimes you may want to send different types of messages to a given object
+and you may expect the actor to behave differently depending on the type received.
+
+That kind of behavior is acomplished by DynamicDispatchActor.
+Whether you use the DSL or the Java flavor you will be able to create
+different processing for different type of messages using the same actor.
+
+ */
+
 import groovyx.gpars.actor.DynamicDispatchActor
 
 class Handler extends DynamicDispatchActor {

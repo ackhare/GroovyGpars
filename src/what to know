@@ -1,0 +1,49 @@
+Stateless actors, represented in GPars by the DynamicDispatchActor and the ReactiveActor classes,
+do not keep track of
+what messages have arrived previously.
+
+Stateful actors, on the other hand, represented in GPars by the DefaultActor class, allow the actor
+to handle the implicit state directly. After receiving a message, the actor moves into
+a new state with different set of handlers to handle future messages.
+
+
+A stateful actor doesn't provide independent message handlers. Instead, a stateful actor defines a body — a block of
+code to execute when the actor starts. Inside the body, the actor may check for messages any time by calling the react
+method. Depending on the actual message contents, the actor executes different actions.
+
+In stateful
+Once started, actors run their body top to bottom, reading messages from their mail-boxes along the way.
+Inside the actor's body you can use loop() to iterate, react() to receive messages, and reply()
+to send a reply to the currently processed message.
+Notice the implicit state transitions of the actor. The first message that arrives is handled
+ by a different handler than the second message in the sequence.
+
+
+
+Continuations
+
+A stateful actor's code is processed in chunks, separated by quiet periods of waiting for new events (messages). This
+can be naturally modeled through continuations.
+
+ However, since JVM doesn't support continuations directly, they have to
+be simulated in the actor frameworks, which has a slight impact on organization of the actors' code.
+
+Calling the react() method from within the actor's code has slightly different semantics than just reading the next
+message from the actor's inbox.
+Under the covers, the closure supplied as a parameter to the react method is scheduled for processing once a
+message becomes available.
+
+
+ The scheduling is the last work the current thread does on the actor's behalf.
+
+  Once scheduled, the thread is detached from the actor and returned to the pool to serve other actors. To allow detaching
+actors from the threads, the react() method requires that the code to be written in a special "Continuation-style."
+
+
+
+Essentially, react() schedules the supplied code (closure) to be executed upon next message arrival and quits the actor
+body. The closure supplied to the react() methods is the code where the computation should continue. Thus, we have
+continuation style. The loop() method allows iteration within the actor body. Unlike typical looping constructs, loop()
+cooperates with nested react() blocks and ensures looping across subsequent message retrievals.
+
+

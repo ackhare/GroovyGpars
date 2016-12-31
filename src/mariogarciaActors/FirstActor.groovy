@@ -5,7 +5,11 @@ package mariogarciaActors
  */
 import groovyx.gpars.actor.Actors
 import groovyx.gpars.actor.DefaultActor
+
+
 //Actor’s dsl is created by using Actors.actor method.
+//The DefaultActor class is the base for all stateful actors, who need to maintain implicit
+// state between subsequent message arrivals.
 DefaultActor receiver = Actors.actor {
     //This actor never will end without an explicit termination
     loop {

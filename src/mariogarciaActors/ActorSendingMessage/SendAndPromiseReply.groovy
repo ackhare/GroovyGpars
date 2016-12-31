@@ -3,6 +3,14 @@ package mariogarciaActors.ActorSendingMessage
 /**
  * Created by chetan on 24/11/16.
  */
+/*
+Logging is really important but sometimes we just want a response as a
+consequence of sending data. Now we will be sending a message to a given actor and expecting a response to that data.
+
+Let’s say we want to have some word translated we want to send
+the word to an actor instance and get the translation back.
+
+ */
 import static groovyx.gpars.actor.Actors.actor
 import groovyx.gpars.dataflow.Promise
 ////Important thing is that actor is not only reacting(printing etc) but also replying back

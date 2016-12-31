@@ -8,7 +8,8 @@ import groovy.transform.Immutable
 import groovyx.gpars.actor.Actors
 import groovyx.gpars.actor.DefaultActor
 /*
-Immutability is always the right choice when dealing with concurrency and parallelism. Use it as much as you can.
+Immutability is always the right choice when dealing with concurrency and parallelism.
+Use it as much as you can.
 
  */
 @Immutable
@@ -16,13 +17,16 @@ class UserItem {
     String userName
     Long itemId
 }
-
+//stateful actor
+//An actor is created and instantiated as we do this by the factory method actor() ehich acts as a dsl
 final DefaultActor loggingServiceActor = Actors.actor {
     loop {
         //The react method closure can receive as parameter any type. Of course make sure
         // the type you expect is the one your are actually receiving, otherwise you’ll get a cast exception.
         //Here is not another actor sending messages to our actor but a different thread (the main thread).
         react { UserItem userItem ->
+           //will tell that only one thread is being used
+            println Thread.currentThread().name
             //An actor’s message handler (react) can only expect 0 or 1 argument
             println "user ${userItem.userName} added item ${userItem.itemId} at ${new Date()}"
         }
