@@ -1,0 +1,11 @@
+6.2. Supervising
+
+Supervising is a really useful feature because you could:
+
+    Get notified of changes on other actors
+
+    Take control over them (stopping, restarting…etc)
+
+Although GPars doesn’t have that functionality out-of-the-box yet, I’ll try to implement a very simple example on how supervisors may look like using GPars.
+
+First thing is to implement the skeleton of what a supervised actor may look like. A Supervised object is an actor that can inform to its linked Supervisor before it stops, giving information about the reasons that made it stop.

@@ -39,5 +39,5 @@ String answer2 =
     reallyFastService.
         sendAndWait('Tellme how is gonna end 24 this season')
 
-assert answer1.get() == 43
-assert answer2 == 'No idea'
+println  answer1.get() == 43
+println answer2 == 'No idea'

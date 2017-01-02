@@ -40,9 +40,10 @@ final branch2 = new BankBranch(id: '0002').start()
 final bank = new Bank(id: 'SuperRichBank').start()
 // public final <T> MessageStream send(T message, MessageStream replyTo) {
 //so as per definition bank has taken the request and sending money to branches
-bank.send(1000, branch1)
+//send(T message, MessageStream replyTo) {
+bank.send(1000, branch1)//100 rupees send ho gaye
 bank.send(2000, branch2)
 
-println bank.sendAndWait(3000)
+println  bank.sendAndWait(3000)
 
 

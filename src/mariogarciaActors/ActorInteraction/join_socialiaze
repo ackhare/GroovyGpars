@@ -1,0 +1,14 @@
+5. Make Actors socialize
+
+So far we have been sending messages to an actor, receiving messages as an actor, and even replying as an actor but
+there’s one important part missing here… I want actors to talk to each other. Lets see how to do it.
+
+5.1. Joining actors
+
+When you want callers to wait an actor to terminate you should be using actor’s join() method. Sometimes maybe a client
+calling to an actor, sometimes could be an actor sending messages to another actor.
+
+    Actors provide a join() method to allow callers to wait for the actor to terminate. A variant accepting a timeout is
+    also available
+
+— GPars official documentation

@@ -1,6 +1,5 @@
 Stateless actors, represented in GPars by the DynamicDispatchActor and the ReactiveActor classes,
-do not keep track of
-what messages have arrived previously.
+do not keep track of what messages have arrived previously.
 
 Stateful actors, on the other hand, represented in GPars by the DefaultActor class, allow the actor
 to handle the implicit state directly. After receiving a message, the actor moves into
@@ -11,12 +10,15 @@ A stateful actor doesn't provide independent message handlers. Instead, a statef
 code to execute when the actor starts. Inside the body, the actor may check for messages any time by calling the react
 method. Depending on the actual message contents, the actor executes different actions.
 
+
+
 In stateful
 Once started, actors run their body top to bottom, reading messages from their mail-boxes along the way.
 Inside the actor's body you can use loop() to iterate, react() to receive messages, and reply()
 to send a reply to the currently processed message.
-Notice the implicit state transitions of the actor. The first message that arrives is handled
- by a different handler than the second message in the sequence.
+Notice the implicit state transitions of the actor.
+ The first message that arrives is handled by a different handler than the second message in the sequence.
+
 
 
 
@@ -47,3 +49,17 @@ continuation style. The loop() method allows iteration within the actor body. Un
 cooperates with nested react() blocks and ensures looping across subsequent message retrievals.
 
 
+
+Messages can be sent to actors using the send() method.send method returns this instead of reply
+
+A family of sendAndWait() methods is available to block the caller until a reply from the actor is available.
+ The reply is returned from the sendAndWait() method as a return value.
+ The sendAndWait() methods may also return after a timeout expires or
+ in case of termination of the called actor.
+
+
+The sendAndContinue() method allows the caller to continue its processing while the supplied closure is waiting for a reply from the actor.
+
+
+
+DynamicicDispatch is eseentially used when you have to send back diffrent kind of messages

@@ -4,7 +4,7 @@ package mariogarciaActors.ActorInteraction
  * Created by chetan on 24/11/16.
  */
 import static groovyx.gpars.actor.Actors.actor
-
+//DefaultActor is the actor rteturned
 final receiver = actor {
     loop {
         react { msg ->
@@ -22,3 +22,4 @@ final sender = actor {
 }
 
 [receiver, sender]*.join()
+println "Never reached"
