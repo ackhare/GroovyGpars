@@ -17,7 +17,6 @@ class WithId extends DefaultActor {
 class Bank extends WithId {
     void act() {
         loop {
-
 //            println 'yyyyyy'
 //first it comes here  calculates 1000, 2000 then goes to branch
             react { Integer amount ->
@@ -56,16 +55,8 @@ final bank = new Bank(id: 'abcd').start()
 //send(T message, MessageStream replyTo) {
 bank.send(1000, branch1)//100 rupees send ho gaye  ////Specify an actor to send replies to
 bank.send(2000, branch2)
+//Actors provide a join() method to allow callers to wait for the actor to terminate.
 bank.join()
 //bank.stop()
 //
 //bank.sendAndWait('mmmm')
-
-/*
-mmm
-abcd
-Amount 1000 has been stored in -- 0001 --
-mmm
-abcd
-Amount 2000 has been stored in -- 0002 --
- */
