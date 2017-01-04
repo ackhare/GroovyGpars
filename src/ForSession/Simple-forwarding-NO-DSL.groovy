@@ -21,7 +21,7 @@ class Bank extends WithId {
 //            println 'yyyyyy'
 //first it comes here  calculates 1000, 2000 then goes to branch
             react { Integer amount ->
-                println 'mmm'
+                println Thread.currentThread().name
                 reply "Amount $amount has been stored in -- ${sender} --"
                 //stop()
 

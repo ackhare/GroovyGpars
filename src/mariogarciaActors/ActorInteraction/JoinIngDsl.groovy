@@ -9,7 +9,7 @@ final receiver = actor {
     loop {
         react { msg ->
             reply "Replying actor received: '$msg'"
-            stop()
+//            stop()
         }
     }
 }
