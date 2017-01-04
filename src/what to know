@@ -63,3 +63,65 @@ The sendAndContinue() method allows the caller to continue its processing while 
 
 
 DynamicicDispatch is eseentially used when you have to send back diffrent kind of messages
+
+For react
+
+Under the covers the supplied closure is not invoked directly,
+ but scheduled for processing by any thread in the thread pool once a message is available.
+ After scheduling the current thread will then be detached from the actor and freed to process any other actor,
+  which has received a message already.
+
+To allow detaching actors from the threads the react() method demands the code to be written in a special
+Continuation-style.
+
+react() method has a special semantics to allow actors to be detached from threads when no messages are available in
+their mailbox. Essentially, react() schedules the supplied code (closure) to be executed upon next message arrival and
+returns. The closure supplied to the react() methods is the code where the computation should continue . Thus
+continuation style .
+
+Since actor has to preserve the guarantee of at most one thread active within the actor's body,
+the next message cannot be handled before the current message processing finishes.
+Typically, there shouldn't be a need to put code after calls to react() .
+
+Some actor implementations even enforce this, however, GPars does not for performance reasons.
+
+The loop() method allows iteration within the actor body. Unlike typical looping constructs,
+ like for or while loops, loop() cooperates with nested react() blocks and will ensure looping across
+  subsequent message retrievals.
+
+Creating Actors
+
+Actors share a pool of threads, which are dynamically assigned to actors when the actors need to react to messages sent
+to them. The threads are returned to back the pool once a message has been processed and the actor is idle waiting for
+some more messages to arrive.
+
+Notice the loop() method call, which ensures that the actor doesn't stop after having processed the first message.
+
+join is also used for graceful termination and shows result especially inn case of two looped actor
+
+
+class Bank extends WithId {
+    void act() {
+        loop {
+            react { Integer amount ->
+                reply "Amount $amount has been stored in -- ${sender} --"
+                //stop()
+            }
+        }
+    }
+}
+class BankBranch extends WithId {
+    void act() {
+        loop {
+            //as per previous examples we can guess this is the sender or intiatoir who may have send request for cash
+            // and the reciever is the bank who will listen the request and send the money
+            react { String message ->
+                println message
+            }
+        }
+    }
+}
+/*
+
+
+To stop above execution just put stop in comments as has been done

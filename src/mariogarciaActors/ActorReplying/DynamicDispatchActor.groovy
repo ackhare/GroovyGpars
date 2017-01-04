@@ -17,7 +17,7 @@ different processing for different type of messages using the same actor.
 
  */
 //TODO some issue in casting of dynamic dispatch actor and actore
-DynamicDispatchActor handler = messageHandler {
+final DynamicDispatchActor handler = messageHandler {
     when { String name ->
        println "Nice to meet you $name"
     }

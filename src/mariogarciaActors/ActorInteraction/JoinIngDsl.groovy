@@ -9,17 +9,23 @@ final receiver = actor {
     loop {
         react { msg ->
             reply "Replying actor received: '$msg'"
+            stop()
         }
     }
 }
 
 final sender = actor {
     //Instead of loop you have reciever which is above actor and the reciever will reply to sernder which it will print
-    receiver << "Sent Ping"
+    receiver.send("Sent Ping")
     react { msg ->
         println msg
     }
 }
+//Joining actors
 
-[receiver, sender]*.join()
+//Actors provide a join() method to allow callers to wait for the actor to terminate.
+// A variant accepting a timeout is also available.
+// The Groovy spread-dot operator comes in handy when joining multiple actors at a time.
+//[receiver, sender]*.join()
+receiver.join()
 println "Never reached"

@@ -1,4 +1,4 @@
-package DemoActor
+package ForSession.DemoActor
 
 import groovyx.gpars.actor.DefaultActor
 
@@ -17,4 +17,6 @@ class CustomActor1 extends DefaultActor {
 }
 
 def console=new CustomActor1()
+
 console.start()
+console.send('hi')
